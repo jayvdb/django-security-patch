@@ -1,13 +1,20 @@
 from django.conf import settings
+from django.core.exceptions import SuspiciousOperation
 
 
 def QueryStringsSanitizer(get_response):
 
     def wrapper(request):
 
+        path = request.path
+        path_info = request.path_info
+
         for rm in settings.QUERY_REMOVE_STRINGS:
-            request.path = request.path.replace(rm, '')
-            request.path_info = request.path_info.replace(rm, '')
+            path = path.replace(rm, '')
+            path_info = path_info.replace(rm, '')
+
+        if path != request.path or path_info != request.path_info:
+            raise SuspiciousOperation('Invalid URL')
 
         if True:
             # Only apply to get requests
