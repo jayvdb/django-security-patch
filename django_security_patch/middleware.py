@@ -7,6 +7,7 @@ def QueryStringsSanitizer(get_response):
 
         for rm in settings.QUERY_REMOVE_STRINGS:
             request.path = request.path.replace(rm, '')
+            request.path_info = request.path_info.replace(rm, '')
 
         if True:
             # Only apply to get requests
