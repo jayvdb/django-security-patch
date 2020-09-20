@@ -5,7 +5,7 @@ def QueryStringsSanitizer(get_response):
 
     def wrapper(request):
 
-        if request.method == 'GET':
+        if True:
             # Only apply to get requests
             query_strings = []
 
