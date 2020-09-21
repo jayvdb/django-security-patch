@@ -14,6 +14,9 @@ def QueryStringsSanitizer(get_response):
             path_info = path_info.replace(rm, '')
 
         if path != request.path or path_info != request.path_info:
+            # Avoid response handlers from failing due to using bad values
+            request.path = path
+            request.path_info = path_info
             raise SuspiciousOperation('Invalid URL')
 
         if True:
